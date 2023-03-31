@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "matchoji",
+    "slug": "matchoji",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "matchoji"
+}
