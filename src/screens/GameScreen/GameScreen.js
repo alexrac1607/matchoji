@@ -1,8 +1,9 @@
 import React from 'react'
+import EmojiCard from '../../components/EmojiCard/EmojiCard'
 
 const GameScreen = () => {
   return (
-    <div>GameScreen</div>
+    <EmojiCard emojiUnicode='U+1F600'></EmojiCard>
   )
 }
 
