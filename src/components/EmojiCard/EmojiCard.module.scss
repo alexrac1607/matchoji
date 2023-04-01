@@ -1,4 +1,14 @@
+@use "../../styles/config.scss" as config;
+
 .card {
-    height: 30px;
-    width: 30px;
+  height: auto;
+  width: auto;
+  color: config.$color-main;
+  font-size: 36px;
+  width: fit-content;
+}
+
+.selected {
+  outline: solid config.$color-border;
+  border-radius: 10px;
 }
