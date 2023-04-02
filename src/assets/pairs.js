@@ -1862,30 +1862,30 @@ export const pairs = [
     difficulty_index: 1,
   },
 ];
-const checkIfEqual = () => {
-  let newPairs = [];
-  for (let outer = 0; outer < pairs.length; outer++) {
-    let outerEmoji1 = pairs[outer].emoji;
-    let outerEmoji2 = pairs[outer].associated_emoji;
-    let pairAlreadyThere = false;
-    for (let inner = 0; inner < newPairs.length; inner++) {
-      let innerEmoji1 = newPairs[inner].emoji;
-      let innerEmoji2 = newPairs[inner].associated_emoji;
-      pairAlreadyThere =
-        outerEmoji1 === innerEmoji1 && outerEmoji2 === innerEmoji2;
-      if (pairAlreadyThere) {
-        console.log(pairs[outer]);
-        break;
-      }
-    }
-    if (!pairAlreadyThere) {
-      newPairs.push(pairs[outer]);
-    }
-  }
-  console.log(newPairs.length);
-};
-console.log(pairs.length);
-checkIfEqual();
+// const checkIfEqual = () => {
+//   let newPairs = [];
+//   for (let outer = 0; outer < pairs.length; outer++) {
+//     let outerEmoji1 = pairs[outer].emoji;
+//     let outerEmoji2 = pairs[outer].associated_emoji;
+//     let pairAlreadyThere = false;
+//     for (let inner = 0; inner < newPairs.length; inner++) {
+//       let innerEmoji1 = newPairs[inner].emoji;
+//       let innerEmoji2 = newPairs[inner].associated_emoji;
+//       pairAlreadyThere =
+//         outerEmoji1 === innerEmoji1 && outerEmoji2 === innerEmoji2;
+//       if (pairAlreadyThere) {
+//         console.log(pairs[outer]);
+//         break;
+//       }
+//     }
+//     if (!pairAlreadyThere) {
+//       newPairs.push(pairs[outer]);
+//     }
+//   }
+//   console.log(newPairs.length);
+// };
+// console.log(pairs.length);
+// checkIfEqual();
 //12 duplicates - will remove:
 // {
 //   emoji: 'U+1F4DE',

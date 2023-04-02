@@ -21,7 +21,7 @@ const EmojiGrid = ({
   const [linePairs, setLinePairs] = useState([]);
   const [isFail, setIsFail] = useState(false);
   const [levelState, setLevelState] = useState([]);
-  const { level, score, changeScore, changeLevel } = useContext(GameContext);
+  const { context, dispatch } = useContext(GameContext);
 
   const handleEmojiSelection = (emojiUnicode, column, position) => {
     let isEmojiSelected;
@@ -140,10 +140,6 @@ const EmojiGrid = ({
 
   let generatedLines = lineGenerator();
 
-  useEffect(() => {
-    randomizeArray(preparedArr);
-  }, []);
-
   const resetLevelState = () => {
     setSelectedEmojis([]);
     setIsFail(false);
@@ -152,17 +148,17 @@ const EmojiGrid = ({
 
   useEffect(() => {
     generatedLines = lineGenerator();
-  }, [levelState]);
-
-  useEffect(() => {
-    let filteredArr = levelState.filter((obj) => {
+    let invalidPairsArray = levelState.filter((obj) => {
       return obj.isValidPair === false;
     });
-    if (filteredArr.length > lifeCounter) {
+    if (invalidPairsArray.length > lifeCounter) {
       setIsFail(true);
+      dispatch({ type: `reset-context` });
+      resetLevelState();
     }
     if (levelState.length === emojiData.length && emojiData.length !== 0) {
-      changeLevel(level + 1);
+      console.log(levelState.length, emojiData.length);
+      dispatch({ type: `increase-level` });
       resetLevelState();
     }
   }, [levelState]);

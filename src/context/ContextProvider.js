@@ -1,21 +1,27 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const GameContext = createContext();
 
+const reducerFn = (state, action) => {
+  switch (action.type) {
+    case `increase-level`: {
+      return {
+        ...state,
+        level: state.level + 1,
+      };
+    }
+    case `reset-context`: {
+      return { level: 1, score: 0 };
+    }
+  }
+};
+
 export const ContextProvider = ({ children }) => {
-  const [score, setScore] = useState(0);
-  const [level, setLevel] = useState(1);
-  const changeScore = (val) => {
-    setScore(val);
-  };
-  const changeLevel = (val) => {
-    setLevel(val);
-  };
+  const [context, dispatch] = useReducer(reducerFn, { level: 1, score: 0 });
+  const value = { context, dispatch };
   return (
     <>
-      <GameContext.Provider value={{ score, level, changeScore, changeLevel }}>
-        {children}
-      </GameContext.Provider>
+      <GameContext.Provider value={value}>{children}</GameContext.Provider>
     </>
   );
 };

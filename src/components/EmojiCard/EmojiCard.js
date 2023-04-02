@@ -9,7 +9,7 @@ const EmojiCard = ({
   id,
   disabled,
 }) => {
-  const emoji = emojis.find((el) => el.code === emojiUnicode).emoji;
+  const emoji = emojis.find((el) => el.code === emojiUnicode)?.emoji;
   const handleEmojiSelection = (e) => {
     handleSelection(emojiUnicode, column);
   };
@@ -21,7 +21,7 @@ const EmojiCard = ({
       }
     >
       <span id={id} className={disabled ? styles.disabled : null}>
-        {emoji}
+        {emoji ? emoji : <p>pula</p>}
       </span>
     </div>
   );
