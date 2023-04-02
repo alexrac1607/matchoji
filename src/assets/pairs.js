@@ -1862,3 +1862,100 @@ export const pairs = [
     difficulty_index: 1,
   },
 ];
+const checkIfEqual = () => {
+  let newPairs = [];
+  for (let outer = 0; outer < pairs.length; outer++) {
+    let outerEmoji1 = pairs[outer].emoji;
+    let outerEmoji2 = pairs[outer].associated_emoji;
+    let pairAlreadyThere = false;
+    for (let inner = 0; inner < newPairs.length; inner++) {
+      let innerEmoji1 = newPairs[inner].emoji;
+      let innerEmoji2 = newPairs[inner].associated_emoji;
+      pairAlreadyThere =
+        outerEmoji1 === innerEmoji1 && outerEmoji2 === innerEmoji2;
+      if (pairAlreadyThere) {
+        console.log(pairs[outer]);
+        break;
+      }
+    }
+    if (!pairAlreadyThere) {
+      newPairs.push(pairs[outer]);
+    }
+  }
+  console.log(newPairs.length);
+};
+console.log(pairs.length);
+checkIfEqual();
+//12 duplicates - will remove:
+// {
+//   emoji: 'U+1F4DE',
+//   associated_emoji: 'U+1F4F1',
+//   association_type: 'Office',
+//   difficulty_index: 5
+// }
+// {
+//   emoji: 'U+1F52B',
+//   associated_emoji: 'U+1F3AE',
+//   association_type: 'Sport',
+//   difficulty_index: 4
+// }
+// {
+//   emoji: 'U+1F409',
+//   associated_emoji: 'U+1F40A',
+//   association_type: 'Animal',
+//   difficulty_index: 2
+// }
+// {
+//   emoji: 'U+1F3C3',
+//   associated_emoji: 'U+1F3CA',
+//   association_type: 'Entertainment',
+//   difficulty_index: 3
+// }
+// {
+//   emoji: 'U+1F4F7',
+//   associated_emoji: 'U+1F4F9',
+//   association_type: 'Communication',
+//   difficulty_index: 3
+// }
+// {
+//   emoji: 'U+1F34C',
+//   associated_emoji: 'U+1F34F',
+//   association_type: 'Food',
+//   difficulty_index: 2
+// }
+// {
+//   emoji: 'U+1F6F0',
+//   associated_emoji: 'U+1F6EB',
+//   association_type: 'Transportation',
+//   difficulty_index: 3
+// }
+// {
+//   emoji: 'U+1F449',
+//   associated_emoji: 'U+1F446',
+//   association_type: 'Person',
+//   difficulty_index: 2
+// }
+// {
+//   emoji: 'U+1F346',
+//   associated_emoji: 'U+1F347',
+//   association_type: 'Food',
+//   difficulty_index: 2
+// }
+// {
+//   emoji: 'U+1F33F',
+//   associated_emoji: 'U+1F33E',
+//   association_type: 'Nature',
+//   difficulty_index: 1
+// }
+// {
+//   emoji: 'U+1F389',
+//   associated_emoji: 'U+1F388',
+//   association_type: 'Celebration',
+//   difficulty_index: 1
+// }
+// {
+//   emoji: 'U+1F4B0',
+//   associated_emoji: 'U+1F4B3',
+//   association_type: 'Communication',
+//   difficulty_index: 1
+// }
