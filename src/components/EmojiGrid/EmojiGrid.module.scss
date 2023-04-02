@@ -7,4 +7,17 @@
   align-items: center;
   justify-items: center;
   align-content: center;
+  position: relative
+}
+
+.emojiSubgrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 30px;
+  column-gap: 30px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  position: relative
 }
