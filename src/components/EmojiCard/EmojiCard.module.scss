@@ -5,9 +5,20 @@
   width: auto;
   color: config.$color-main;
   font-size: 36px;
-  width: fit-content;
+  & * {
+    height: 50px;
+    width: 50px;
+    color: config.$color-main;
+    font-size: 36px;
+  }
+  // width: fit-content;
 }
 
+.emoij {
+  height: 100px;
+  background-color: rebeccapurple;
+  font-size: 100px;
+}
 .selected {
   outline: solid config.$color-border;
   border-radius: 10px;

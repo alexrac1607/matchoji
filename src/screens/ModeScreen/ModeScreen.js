@@ -1,14 +1,17 @@
-import React from 'react'
-import MenuButton from '../../atoms/MenuButton'
-import { labels } from '../../constants/labels'
+import React from "react";
+import MenuButton from "../../atoms/MenuButton";
+import { labels } from "../../constants/labels";
 import styles from "../../styles/utils.modules.scss";
-
-const ModeScreen = ({navigation}) => {
+import { View } from "react-native";
+const ModeScreen = ({ navigation }) => {
   return (
-    <div className={styles.menu}>
-    <MenuButton btnLabel={labels.CLASSIC_GAMEMODE} mainAction={() => navigation.navigate('GameScreen')}/>
-    </div>
-  )
-}
+    <View className={styles.menu}>
+      <MenuButton
+        btnLabel={labels.CLASSIC_GAMEMODE}
+        mainAction={() => navigation.navigate("GameScreen")}
+      />
+    </View>
+  );
+};
 
-export default ModeScreen
+export default ModeScreen;

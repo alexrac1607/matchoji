@@ -7,7 +7,7 @@ import React, {
   useContext,
 } from "react";
 import classes from "./EmojiGrid.module.scss";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import { randomizeArray } from "../../utils/utils";
 import { GameContext } from "../../context/ContextProvider";
@@ -164,18 +164,18 @@ const EmojiGrid = ({
   }, [levelState]);
 
   return (
-    <>
-      {!isFail && (
-        <Xwrapper>
-          {generatedLines}
-          <div className={classes.emojiGrid}>
-            <div className={classes.emojiSubgrid}>{renderedLeftEmojis}</div>
-            <div className={classes.emojiSubgrid}>{renderedRightEmojis}</div>
-          </div>
-        </Xwrapper>
-      )}
-      {isFail && <div>Mai incearca sau da 15 dolari</div>}
-    </>
+    // <>
+    //   {!isFail && (
+    <Xwrapper>
+      {generatedLines}
+      <View className={classes.emojiGrid}>
+        <View className={classes.emojiSubgrid}>{renderedLeftEmojis}</View>
+        <View className={classes.emojiSubgrid}>{renderedRightEmojis}</View>
+      </View>
+    </Xwrapper>
+    //   )}
+    //   {isFail && <View>Mai incearca sau da 15 dolari</View>}
+    // </>
   );
 };
 

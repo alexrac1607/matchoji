@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./EmojiCard.module.scss";
 import emojis from "../../assets/emojiData";
+import { View, Text } from "react-native";
 const EmojiCard = ({
   column,
   handleSelection,
@@ -14,16 +15,20 @@ const EmojiCard = ({
     handleSelection(emojiUnicode, column);
   };
   return (
-    <div
+    <View
       onPress={handleEmojiSelection}
       className={
         selected ? { ...styles.card, ...styles.selected } : { ...styles.card }
       }
     >
-      <span id={id} className={disabled ? styles.disabled : null}>
-        {emoji ? emoji : <p>pula</p>}
-      </span>
-    </div>
+      <Text
+        id={id}
+        className={styles.emoji}
+        // className={disabled ? styles.disabled : null}
+      >
+        {emoji ? emoji : "pula"}
+      </Text>
+    </View>
   );
 };
 

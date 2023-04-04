@@ -1,9 +1,14 @@
-import React from 'react'
-
-const MenuButton = ({btnLabel, mainAction}) => {
+import React from "react";
+import { Button } from "react-native";
+const MenuButton = ({ btnLabel, mainAction }) => {
   return (
-    <button onPress={() => {mainAction()}}>{btnLabel}</button>
-  )
-}
+    <Button
+      onPress={() => {
+        mainAction();
+      }}
+      title={btnLabel}
+    ></Button>
+  );
+};
 
-export default MenuButton
+export default MenuButton;
