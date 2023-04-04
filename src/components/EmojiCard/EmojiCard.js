@@ -1,7 +1,10 @@
 import React from "react";
-import styles from "./EmojiCard.module.scss";
+import styles from "./Styles";
 import emojis from "../../assets/emojiData";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
+
+import { LogBox } from "react-native";
+
 const EmojiCard = ({
   column,
   handleSelection,
@@ -11,24 +14,31 @@ const EmojiCard = ({
   disabled,
 }) => {
   const emoji = emojis.find((el) => el.code === emojiUnicode)?.emoji;
+
   const handleEmojiSelection = (e) => {
-    handleSelection(emojiUnicode, column);
+    console.log(e.target.closest("*"));
+    const coords = { x: e.nativeEvent.pageX, y: e.nativeEvent.pageY };
+    handleSelection(emojiUnicode, column, coords);
   };
   return (
-    <View
-      onPress={handleEmojiSelection}
-      className={
-        selected ? { ...styles.card, ...styles.selected } : { ...styles.card }
-      }
-    >
-      <Text
-        id={id}
-        className={styles.emoji}
-        // className={disabled ? styles.disabled : null}
+    <Pressable onPress={handleEmojiSelection}>
+      <View
+        // onPress={handleEmojiSelection}
+        // className={
+        //   selected ? { ...styles.card, ...styles.selected } : { ...styles.card }
+        // }
+        style={styles.emojiCard}
       >
-        {emoji ? emoji : "pula"}
-      </Text>
-    </View>
+        <Text
+          // onPress={handleEmojiSelection}
+          id={id}
+          className={styles.emoji}
+          // className={disabled ? styles.disabled : null}
+        >
+          {emoji ? emoji : "pula"}
+        </Text>
+      </View>
+    </Pressable>
   );
 };
 

@@ -7,10 +7,12 @@ import React, {
   useContext,
 } from "react";
 import classes from "./EmojiGrid.module.scss";
-import { View, Text } from "react-native";
+import styles from "./Styles";
+import { View, Text, Dimensions } from "react-native";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import { randomizeArray } from "../../utils/utils";
 import { GameContext } from "../../context/ContextProvider";
+import { Svg, Line, Polyline } from "react-native-svg";
 const EmojiGrid = ({
   numberColumns,
   numberRows,
@@ -18,12 +20,11 @@ const EmojiGrid = ({
   lifeCounter = 2,
 }) => {
   const [selectedEmojis, setSelectedEmojis] = useState([]);
-  const [linePairs, setLinePairs] = useState([]);
   const [isFail, setIsFail] = useState(false);
   const [levelState, setLevelState] = useState([]);
   const { context, dispatch } = useContext(GameContext);
 
-  const handleEmojiSelection = (emojiUnicode, column, position) => {
+  const handleEmojiSelection = (emojiUnicode, column, coords) => {
     let isEmojiSelected;
     levelState.forEach((el) => {
       let levelStateValues = Object.values(el);
@@ -44,14 +45,18 @@ const EmojiGrid = ({
         }) ||
         prev.length === 0
       ) {
-        return [{ emoji: emojiUnicode, column: column, position: {} }];
+        return [{ emoji: emojiUnicode, column: column, coords: coords }];
       }
-      return [...prev, { emoji: emojiUnicode, column: column }];
+      return [...prev, { emoji: emojiUnicode, column: column, coords: coords }];
     });
   };
-
+  //TO DO : refactor
   const checkPair = () => {
-    const [{ emoji: emoji1 }, { emoji: emoji2 }] = selectedEmojis;
+    const [
+      { emoji: emoji1, coords: coords1 },
+      { emoji: emoji2, coords: coords2 },
+    ] = selectedEmojis;
+    console.log(coords1, coords2);
     const foundPair = emojiData.find((emojiObj) => {
       return emojiObj.emoji === emoji1 || emojiObj.associated_emoji === emoji1;
     });
@@ -64,6 +69,10 @@ const EmojiGrid = ({
           end: emoji2,
           isValidPair: isValidPair,
           disabled: true,
+          startX: coords1.x,
+          startY: coords1.y,
+          endX: coords2.x,
+          endY: coords2.y,
         },
       ];
     });
@@ -124,26 +133,37 @@ const EmojiGrid = ({
     );
   });
 
-  const lineGenerator = () => {
-    let result = levelState.map((pair) => {
-      return (
-        <Xarrow
-          start={pair.start}
-          end={pair.end}
-          showHead={false}
-          color={pair.isValidPair ? "green" : "red"}
-        />
-      );
-    });
-    return result;
-  };
-
-  let generatedLines = lineGenerator();
-
   const resetLevelState = () => {
     setSelectedEmojis([]);
     setIsFail(false);
     setLevelState([]);
+  };
+  const lineGenerator = () => {
+    let result = levelState.map((pair) => {
+      const { width, height } = Dimensions.get("window");
+      console.log(height, width);
+      return (
+        <View
+          style={{
+            position: "absolute",
+            zIndex: -1,
+            backgroundColor: "transparent",
+          }}
+        >
+          <Svg height={height} width={width}>
+            <Line
+              x2={pair.startX}
+              y2={pair.startY - 50}
+              x1={pair.endX}
+              y1={pair.endY - 50}
+              stroke={pair.isValidPair ? "green" : "red"}
+              strokeWidth="5"
+            />
+          </Svg>
+        </View>
+      );
+    });
+    return result;
   };
 
   useEffect(() => {
@@ -163,19 +183,14 @@ const EmojiGrid = ({
     }
   }, [levelState]);
 
+  let generatedLines = lineGenerator();
+
   return (
-    // <>
-    //   {!isFail && (
-    <Xwrapper>
+    <View className={styles.flexDirectionRow}>
       {generatedLines}
-      <View className={classes.emojiGrid}>
-        <View className={classes.emojiSubgrid}>{renderedLeftEmojis}</View>
-        <View className={classes.emojiSubgrid}>{renderedRightEmojis}</View>
-      </View>
-    </Xwrapper>
-    //   )}
-    //   {isFail && <View>Mai incearca sau da 15 dolari</View>}
-    // </>
+      <View className={styles.column}>{renderedLeftEmojis}</View>
+      <View className={styles.column}>{renderedRightEmojis}</View>
+    </View>
   );
 };
 
