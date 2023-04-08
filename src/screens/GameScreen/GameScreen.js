@@ -19,7 +19,7 @@ const GameScreen = () => {
   }, [level]);
   return (
     <>
-  {currentEmojis?.length > 0 && <EmojiGrid emojiData={currentEmojis} />};
+  {currentEmojis?.length > 0 ? <EmojiGrid emojiData={currentEmojis} /> : null}
   </>
   )
 };

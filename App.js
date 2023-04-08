@@ -23,7 +23,7 @@ export default function App() {
             component={ModeScreen}
           ></Stack.Screen>
           <Stack.Screen
-            options={{ headerShown: false }}
+            // options={{ headerShown: false }}
             name="GameScreen"
             component={GameScreen}
           ></Stack.Screen>

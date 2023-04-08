@@ -1,64 +1,62 @@
-import EmojiCard from "../EmojiCard/EmojiCard";
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useContext,
-} from "react";
-import config from "../../styles/config";
-import styles from "./Styles";
-import { View, Text, Dimensions } from "react-native";
-import { randomizeArray } from "../../utils/utils";
-import { GameContext } from "../../context/ContextProvider";
-import { Svg, Line, Polyline } from "react-native-svg";
+import EmojiCard from '../EmojiCard/EmojiCard'
+import React, { useState, useEffect, useMemo, useContext, useRef } from 'react'
+import config from '../../styles/config'
+import styles from './Styles'
+import { View, Text, Dimensions } from 'react-native'
+import { randomizeArray } from '../../utils/utils'
+import { GameContext } from '../../context/ContextProvider'
+import { Svg, Line, Polyline } from 'react-native-svg'
+import { Animated } from 'react-native'
 const EmojiGrid = ({
   numberColumns,
   numberRows,
   emojiData,
   lifeCounter = 2,
 }) => {
-  const [selectedEmojis, setSelectedEmojis] = useState([]);
-  const [isFail, setIsFail] = useState(false);
-  const [levelState, setLevelState] = useState([]);
-  const { context, dispatch } = useContext(GameContext);
+  const [selectedEmojis, setSelectedEmojis] = useState([])
+  const [isFail, setIsFail] = useState(false)
+  const [levelState, setLevelState] = useState([])
+  const { context, dispatch } = useContext(GameContext)
+  const gridRef = useRef()
+  console.log(levelState)
 
   const handleEmojiSelection = (emojiUnicode, column, coords) => {
-    let isEmojiSelected;
+    let isEmojiSelected
     levelState.forEach((el) => {
-      let levelStateValues = Object.values(el);
+      let levelStateValues = Object.values(el)
       levelStateValues.forEach((el) => {
-        if (el === emojiUnicode) isEmojiSelected = true;
-      });
-    });
+        if (el === emojiUnicode) isEmojiSelected = true
+      })
+    })
 
-    if (isEmojiSelected) return;
+    if (isEmojiSelected) return
 
     setSelectedEmojis((prev) => {
       if (prev[0]?.emoji === emojiUnicode) {
-        return [];
+        return []
       }
       if (
         prev.some((elem) => {
-          return elem.column === column;
+          return elem.column === column
         }) ||
         prev.length === 0
       ) {
-        return [{ emoji: emojiUnicode, column: column, coords: coords }];
+        return [{ emoji: emojiUnicode, column: column, coords: coords }]
       }
-      return [...prev, { emoji: emojiUnicode, column: column, coords: coords }];
-    });
-  };
+      return [...prev, { emoji: emojiUnicode, column: column, coords: coords }]
+    })
+  }
   //TO DO : refactor
   const checkPair = () => {
     const [
       { emoji: emoji1, coords: coords1 },
       { emoji: emoji2, coords: coords2 },
-    ] = selectedEmojis;
-    console.log(coords1, coords2);
+    ] = selectedEmojis
+    console.log(coords1, coords2)
     const foundPair = emojiData.find((emojiObj) => {
-      return emojiObj.emoji === emoji1 || emojiObj.associated_emoji === emoji1;
-    });
-    const isValidPair = Object.values(foundPair).includes(emoji2);
+      return emojiObj.emoji === emoji1 || emojiObj.associated_emoji === emoji1
+    })
+    const isValidPair = Object.values(foundPair).includes(emoji2)
     setLevelState((prev) => {
       return [
         ...prev,
@@ -72,49 +70,72 @@ const EmojiGrid = ({
           endX: coords2.x,
           endY: coords2.y,
         },
-      ];
-    });
+      ]
+    })
 
-    return isValidPair;
-  };
+    return isValidPair
+  }
 
   useEffect(() => {
     if (selectedEmojis.length > 1) {
-      checkPair();
+      checkPair()
     }
-  }, [selectedEmojis.length > 1]);
+  }, [selectedEmojis.length > 1])
 
   const renderedLeftEmojis = emojiData.map((emoji) => {
+    let curPair = levelState.find((element) => {
+      return element.start === emoji.emoji || element.end === emoji.emoji
+    })
     return (
       <>
         <EmojiCard
+          solved={
+            curPair?.isValidPair === true
+              ? 'blue'
+              : curPair?.isValidPair === false
+              ? 'yellow'
+              : null
+          }
+          gridRef={gridRef}
           id={emoji.emoji}
-          selected={selectedEmojis.some((element) => {
-            return element.emoji === emoji.emoji;
-          })}
-          handleSelection={handleEmojiSelection}
           emojiUnicode={emoji.emoji}
           key={emoji.emoji}
-          column={1}
-          disabled={levelState.find((element) => {
-            return element.start === emoji.emoji || element.end === emoji.emoji;
+          selected={selectedEmojis.some((element) => {
+            return element.emoji === emoji.emoji
           })}
+          handleSelection={handleEmojiSelection}
+          column={1}
+          disabled={curPair}
         />
       </>
-    );
-  });
+    )
+  })
 
   const preparedArr = useMemo(() => {
-    return randomizeArray(emojiData);
-  }, [emojiData]);
+    return randomizeArray(emojiData)
+  }, [emojiData])
 
   const renderedRightEmojis = preparedArr.map((emoji) => {
+    let curPair = levelState.find((element) => {
+      return (
+        element.start === emoji.associated_emoji ||
+        element.end === emoji.associated_emoji
+      )
+    })
     return (
       <>
         <EmojiCard
+          solved={
+            curPair?.isValidPair === true
+              ? 'blue'
+              : curPair?.isValidPair === false
+              ? 'yellow'
+              : null
+          }
+          gridRef={gridRef}
           id={emoji.associated_emoji}
           selected={selectedEmojis.some((element) => {
-            return element.emoji === emoji.associated_emoji;
+            return element.emoji === emoji.associated_emoji
           })}
           handleSelection={handleEmojiSelection}
           emojiUnicode={emoji.associated_emoji}
@@ -124,28 +145,28 @@ const EmojiGrid = ({
             return (
               element.start === emoji.associated_emoji ||
               element.end === emoji.associated_emoji
-            );
+            )
           })}
         />
       </>
-    );
-  });
+    )
+  })
 
   const resetLevelState = () => {
-    setSelectedEmojis([]);
-    setIsFail(false);
-    setLevelState([]);
-  };
+    setSelectedEmojis([])
+    setIsFail(false)
+    setLevelState([])
+  }
   const lineGenerator = () => {
     let result = levelState.map((pair) => {
-      const { width, height } = Dimensions.get("window");
-      console.log(height, width);
+      const { width, height } = Dimensions.get('window')
+      console.log(height, width)
       return (
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             zIndex: -1,
-            backgroundColor: "transparent",
+            backgroundColor: 'transparent',
           }}
         >
           <Svg height={height} width={width}>
@@ -159,38 +180,41 @@ const EmojiGrid = ({
             />
           </Svg>
         </View>
-      );
-    });
-    return result;
-  };
+      )
+    })
+    return result
+  }
 
   useEffect(() => {
-    generatedLines = lineGenerator();
+    generatedLines = lineGenerator()
     let invalidPairsArray = levelState.filter((obj) => {
-      return obj.isValidPair === false;
-    });
+      return obj.isValidPair === false
+    })
     if (invalidPairsArray.length > lifeCounter) {
-      setIsFail(true);
-      dispatch({ type: `reset-context` });
+      setIsFail(true)
+      dispatch({ type: `reset-context` })
       dispatch({ type: `get-level-data` })
-      resetLevelState();
+      resetLevelState()
     }
     if (levelState.length === emojiData.length && emojiData.length !== 0) {
-      console.log(levelState.length, emojiData.length);
-      dispatch({ type: `increase-level` });
-      resetLevelState();
+      console.log(levelState.length, emojiData.length)
+      dispatch({ type: `increase-level` })
+      resetLevelState()
     }
-  }, [levelState]);
+  }, [levelState])
 
-  let generatedLines = lineGenerator();
+  let generatedLines = lineGenerator()
 
   return (
-    <View className={styles.flexDirectionRow}>
+    <View
+      className={{ ...styles.flexDirectionRow, ...styles.grid }}
+      ref={gridRef}
+    >
       {generatedLines}
       <View className={styles.column}>{renderedLeftEmojis}</View>
       <View className={styles.column}>{renderedRightEmojis}</View>
     </View>
-  );
-};
+  )
+}
 
-export default EmojiGrid;
+export default EmojiGrid

@@ -4,48 +4,55 @@ import emojis from "../../assets/emojiData";
 import { View, Text, Pressable } from "react-native";
 import { useRef } from "react";
 import { LogBox } from "react-native";
+import { styleBuilder } from "../../utils/utils";
 
 const EmojiCard = ({
-  column,
-  handleSelection,
-  emojiUnicode,
-  selected = false,
-  id,
-  disabled,
+	column,
+	handleSelection,
+	emojiUnicode,
+	id,
+	selected = false,
+	disabled,
+	gridRef,
+	solved,
 }) => {
-  const emoji = emojis.find((el) => el.code === emojiUnicode)?.emoji;
-  const ref = useRef()
+	const emoji = emojis.find((el) => el.code === emojiUnicode)?.emoji;
+	const ref = useRef();
 
-  const handleEmojiSelection = (e) => {
-    console.log(e.target.closest("*"));
-    ref.current.measure((x, y, width, height, pagex, pagey) => {
-      console.log(x, y, width, height, pagex, pagey)
-      const coords = {x: pagex + width / 2, y: pagey + height + height / 2}
-      handleSelection(emojiUnicode, column, coords);
-    })
-    // const coords = { x: e.nativeEvent.pageX, y: e.nativeEvent.pageY };
+	let selectStyle = selected ? styles.selected : null;
+	let solvedStyle = { backgroundColor: solved };
+	let disabledStyle = disabled ? styles.disabled : null;
 
-  };
-  return (
-    <Pressable onPress={handleEmojiSelection}>
-      <View ref={ref}
-        // onPress={handleEmojiSelection}
-        // className={
-        //   selected ? { ...styles.emojiCard, ...styles.selected } : { ...styles.card }
-        // }
-        style= {selected ? { ...styles.emojiCard, ...styles.selected } : { ...styles.emojiCard }}
-      > 
-        <Text
-          // onPress={handleEmojiSelection}
-          id={id}
-          className={styles.emoji}
-          // className={disabled ? styles.disabled : null}
-        >
-          {emoji ? emoji : "pula"}
-        </Text>
-      </View>
-    </Pressable>
-  );
+	let concStyle = styleBuilder(selectStyle, solvedStyle);
+	let emojiConcStyle = styleBuilder(disabledStyle, styles.emoji);
+	const handleEmojiSelection = (e) => {
+		ref.current.measureLayout(gridRef.current, (x, y, width, height) => {
+			const coords = { x: x + width / 2, y: y + height + height / 2 };
+			handleSelection(emojiUnicode, column, coords);
+		});
+	};
+	return (
+		<Pressable onPress={handleEmojiSelection}>
+			<View
+				ref={ref}
+				// onPress={handleEmojiSelection}
+				// className={
+				//   selected ? { ...styles.emojiCard, ...styles.selected } : { ...styles.card }
+				// }
+				style={concStyle}
+			>
+				<Text
+					// onPress={handleEmojiSelection}
+					id={id}
+					style={emojiConcStyle}
+					// className={disabled ? styles.disabled : null}
+				>
+					{emoji}
+      
+				</Text>
+			</View>
+		</Pressable>
+	);
 };
 
 export default EmojiCard;
