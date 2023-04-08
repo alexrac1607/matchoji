@@ -15,17 +15,15 @@ export default function App() {
       <NavigationContainer options={{ headerShown: false }}>
         <Stack.Navigator options={{ headerShown: false }}>
           <Stack.Screen
-            options={{ headerShown: false }}
             name="Home"
             component={MainMenuScreen}
           />
           <Stack.Screen
-            options={{ headerShown: false }}
             name="ModeScreen"
             component={ModeScreen}
           ></Stack.Screen>
           <Stack.Screen
-            // options={{ headerShown: false }}
+            options={{ headerShown: false }}
             name="GameScreen"
             component={GameScreen}
           ></Stack.Screen>

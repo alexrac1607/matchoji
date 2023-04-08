@@ -3,13 +3,11 @@ import React, {
   useState,
   useEffect,
   useMemo,
-  useCallback,
   useContext,
 } from "react";
-import classes from "./EmojiGrid.module.scss";
+import config from "../../styles/config";
 import styles from "./Styles";
 import { View, Text, Dimensions } from "react-native";
-import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import { randomizeArray } from "../../utils/utils";
 import { GameContext } from "../../context/ContextProvider";
 import { Svg, Line, Polyline } from "react-native-svg";
@@ -156,7 +154,7 @@ const EmojiGrid = ({
               y2={pair.startY - 50}
               x1={pair.endX}
               y1={pair.endY - 50}
-              stroke={pair.isValidPair ? "green" : "red"}
+              stroke={pair.isValidPair ? config.correctPair : config.wrongPair}
               strokeWidth="5"
             />
           </Svg>
@@ -174,6 +172,7 @@ const EmojiGrid = ({
     if (invalidPairsArray.length > lifeCounter) {
       setIsFail(true);
       dispatch({ type: `reset-context` });
+      dispatch({ type: `get-level-data` })
       resetLevelState();
     }
     if (levelState.length === emojiData.length && emojiData.length !== 0) {
