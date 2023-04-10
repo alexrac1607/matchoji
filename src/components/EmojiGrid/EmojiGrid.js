@@ -7,16 +7,14 @@ import { randomizeArray } from '../../utils/utils'
 import { GameContext } from '../../context/ContextProvider'
 import { Svg, Line, Polyline } from 'react-native-svg'
 import { Animated } from 'react-native'
-const EmojiGrid = ({
-  numberColumns,
-  numberRows,
-  emojiData,
-  lifeCounter = 2,
-}) => {
+const EmojiGrid = ({ emojiData }) => {
   const [selectedEmojis, setSelectedEmojis] = useState([])
   const [isFail, setIsFail] = useState(false)
   const [levelState, setLevelState] = useState([])
-  const { context, dispatch } = useContext(GameContext)
+  const {
+    context: { permittedFail, livesLeft, level },
+    dispatch,
+  } = useContext(GameContext)
   const gridRef = useRef()
   console.log(levelState)
 
@@ -52,7 +50,6 @@ const EmojiGrid = ({
       { emoji: emoji1, coords: coords1 },
       { emoji: emoji2, coords: coords2 },
     ] = selectedEmojis
-    console.log(coords1, coords2)
     const foundPair = emojiData.find((emojiObj) => {
       return emojiObj.emoji === emoji1 || emojiObj.associated_emoji === emoji1
     })
@@ -190,12 +187,19 @@ const EmojiGrid = ({
     let invalidPairsArray = levelState.filter((obj) => {
       return obj.isValidPair === false
     })
-    if (invalidPairsArray.length > lifeCounter) {
+
+    if (invalidPairsArray.length > permittedFail) {
       setIsFail(true)
-      dispatch({ type: `reset-context` })
+      dispatch({ type: 'decrease-life' })
+
       dispatch({ type: `get-level-data` })
       resetLevelState()
     }
+
+    if (!livesLeft) {
+      dispatch({ type: `reset-context` })
+    }
+
     if (levelState.length === emojiData.length && emojiData.length !== 0) {
       console.log(levelState.length, emojiData.length)
       dispatch({ type: `increase-level` })
@@ -209,7 +213,7 @@ const EmojiGrid = ({
     <View
       className={{ ...styles.flexDirectionRow, ...styles.grid }}
       ref={gridRef}
-    >
+    > 
       {generatedLines}
       <View className={styles.column}>{renderedLeftEmojis}</View>
       <View className={styles.column}>{renderedRightEmojis}</View>
