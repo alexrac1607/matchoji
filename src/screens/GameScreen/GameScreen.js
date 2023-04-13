@@ -22,7 +22,13 @@ const GameScreen = () => {
 
   return (
     <>
-      <CustomModal isVisible={showModal} setIsVisible={setShowModal}></CustomModal>
+      <CustomModal
+        customStyle={{ borderWidth: 5, borderColor: 'red' }}
+        mainMessage="You died"
+        btnMessage="start again"
+        isVisible={showModal}
+        setIsVisible={setShowModal}
+      ></CustomModal>
       {currentEmojis?.length > 0 ? (
         <EmojiGrid emojiData={currentEmojis} />
       ) : null}

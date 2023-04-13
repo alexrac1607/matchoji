@@ -1,32 +1,38 @@
 import React from 'react'
-import {Alert, Modal, Stylesheet, Text, Pressable, View} from 'react-native';
-import { Styles } from './Styles';
+import { Alert, Modal, Stylesheet, Text, Pressable, View } from 'react-native'
+import { Styles } from './Styles'
 
-const CustomModal = ({isVisible, setIsVisible}) => {
-    return (
-        <View style={Styles.centeredView}>
+const CustomModal = ({
+  isVisible,
+  setIsVisible,
+  mainMessage,
+  btnMessage,
+  customStyle,
+}) => {
+  return (
+    <View style={Styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={false}
         visible={isVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setIsVisible(!isVisible);
-        }}>
+          setIsVisible(!isVisible)
+        }}
+      >
         <View style={Styles.centeredView}>
-          <View style={Styles.modalView}>
-            <Text style={Styles.modalText}>Hello World!</Text>
+          <View style={{ ...Styles.modalView, ...customStyle }}>
+            <Text style={Styles.modalText}>{mainMessage}</Text>
             <Pressable
               style={[Styles.button, Styles.buttonClose]}
-              onPress={() => setIsVisible(!isVisible)}>
-              <Text style={Styles.textStyle}>Hide Modal</Text>
+              onPress={() => setIsVisible(!isVisible)}
+            >
+              <Text style={Styles.textStyle}>{btnMessage}</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
     </View>
-    )
+  )
 }
-  
-  
-  export default CustomModal
+
+export default CustomModal

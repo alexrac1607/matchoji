@@ -7,6 +7,7 @@ import { randomizeArray } from '../../utils/utils'
 import { GameContext } from '../../context/ContextProvider'
 import { Svg, Line, Polyline } from 'react-native-svg'
 import { Animated } from 'react-native'
+import { styleBuilder } from '../../utils/utils'
 const EmojiGrid = ({ emojiData }) => {
   const [selectedEmojis, setSelectedEmojis] = useState([])
   const [isFail, setIsFail] = useState(false)
@@ -88,9 +89,9 @@ const EmojiGrid = ({ emojiData }) => {
         <EmojiCard
           solved={
             curPair?.isValidPair === true
-              ? 'blue'
+              ? 'green'
               : curPair?.isValidPair === false
-              ? 'yellow'
+              ? 'red'
               : null
           }
           gridRef={gridRef}
@@ -124,9 +125,9 @@ const EmojiGrid = ({ emojiData }) => {
         <EmojiCard
           solved={
             curPair?.isValidPair === true
-              ? 'blue'
+              ? 'green'
               : curPair?.isValidPair === false
-              ? 'yellow'
+              ? 'red'
               : null
           }
           gridRef={gridRef}
@@ -211,9 +212,15 @@ const EmojiGrid = ({ emojiData }) => {
 
   return (
     <View
-      className={{ ...styles.flexDirectionRow, ...styles.grid }}
+      className={{
+        transform: [
+          { translateX: Dimensions.get('window').width * 0.3 },
+          { translateY: Dimensions.get('window').height * 0.1 },
+        ],
+        ...styleBuilder(styles.flexDirectionRow, styles.grid),
+      }}
       ref={gridRef}
-    > 
+    >
       {generatedLines}
       <View className={styles.column}>{renderedLeftEmojis}</View>
       <View className={styles.column}>{renderedRightEmojis}</View>
