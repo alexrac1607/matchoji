@@ -7,8 +7,11 @@ import ModeScreen from "./src/screens/ModeScreen/ModeScreen";
 import GameScreen from "./src/screens/GameScreen/GameScreen";
 import { GameContext } from "./src/context/ContextProvider";
 import { ContextProvider } from "./src/context/ContextProvider";
+import GameHeader from "./src/components/GameHeader/GameHeader";
 export default function App() {
   const Stack = createNativeStackNavigator();
+
+  
 
   return (
     <ContextProvider>
@@ -23,7 +26,10 @@ export default function App() {
             component={ModeScreen}
           ></Stack.Screen>
           <Stack.Screen
-            // options={{ headerShown: false }}
+            options={{ headerTitle: () => <GameHeader></GameHeader>, headerStyle: {
+              backgroundColor: 'blue',
+              headerBackVisible: false
+            } }}
             name="GameScreen"
             component={GameScreen}
           ></Stack.Screen>

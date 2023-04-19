@@ -1,12 +1,11 @@
 import React from "react";
-import styles from "../../styles/utils.modules.scss";
 import MenuButton from "../../atoms/MenuButton";
 import { labels } from "../../constants/labels";
 import { View } from "react-native";
 
 const MainMenuScreen = ({ navigation }) => {
   return (
-    <View className={styles.menu}>
+    <View >
       <MenuButton
         btnLabel={labels.PLAY_BUTTON}
         mainAction={() => {

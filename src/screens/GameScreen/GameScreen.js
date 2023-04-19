@@ -29,6 +29,7 @@ const GameScreen = () => {
         isVisible={showModal}
         setIsVisible={setShowModal}
       ></CustomModal>
+      
       {currentEmojis?.length > 0 ? (
         <EmojiGrid emojiData={currentEmojis} />
       ) : null}
