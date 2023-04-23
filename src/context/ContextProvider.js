@@ -2,7 +2,6 @@ import { createContext, useReducer, useState } from 'react'
 import { tiers } from '../constants/tiers'
 import { pairs } from '../assets/pairs'
 import { getRandomInt } from '../utils/utils'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const GameContext = createContext()
 

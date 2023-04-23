@@ -8,6 +8,7 @@ import GameScreen from "./src/screens/GameScreen/GameScreen";
 import { GameContext } from "./src/context/ContextProvider";
 import { ContextProvider } from "./src/context/ContextProvider";
 import GameHeader from "./src/components/GameHeader/GameHeader";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
 
