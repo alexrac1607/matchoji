@@ -4,7 +4,11 @@ import { GameContext } from '../../context/ContextProvider'
 import { useContext } from 'react'
 import Modal from '../../components/Modal/Modal'
 import CustomModal from '../../components/Modal/Modal'
-
+import styles from './styles'
+import { View } from 'react-native'
+import config from '../../styles/config'
+import { ImageBackground } from 'react-native'
+import backgroundImage from '../../assets/gameBcgImg.jpg'
 const GameScreen = () => {
   const {
     context: { level, currentEmojis, livesLeft },
@@ -21,7 +25,12 @@ const GameScreen = () => {
   }, [livesLeft])
 
   return (
-    <>
+    <View style={styles.background}>
+      <ImageBackground
+        source={backgroundImage}
+        resizeMode="cover"
+        style={styles.backgroundImg}
+      ></ImageBackground>
       <CustomModal
         customStyle={{ borderWidth: 5, borderColor: 'red' }}
         mainMessage="You died"
@@ -29,11 +38,10 @@ const GameScreen = () => {
         isVisible={showModal}
         setIsVisible={setShowModal}
       ></CustomModal>
-      
       {currentEmojis?.length > 0 ? (
         <EmojiGrid emojiData={currentEmojis} />
       ) : null}
-    </>
+    </View>
   )
 }
 

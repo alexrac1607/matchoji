@@ -170,11 +170,11 @@ const EmojiGrid = ({ emojiData }) => {
           <Svg height={height} width={width}>
             <Line
               x2={pair.startX}
-              y2={pair.startY - 50}
+              y2={pair.startY - 65}
               x1={pair.endX}
-              y1={pair.endY - 50}
+              y1={pair.endY - 65}
               stroke={pair.isValidPair ? config.correctPair : config.wrongPair}
-              strokeWidth="5"
+              strokeWidth="10"
             />
           </Svg>
         </View>

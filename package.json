@@ -40,7 +40,8 @@
     "react-native-web": "~0.18.10",
     "react-navigation": "^4.4.4",
     "react-xarrows": "^2.0.2",
-    "sass": "^1.60.0"
+    "sass": "^1.60.0",
+    "expo-linear-gradient": "~12.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

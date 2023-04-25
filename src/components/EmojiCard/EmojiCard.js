@@ -1,11 +1,12 @@
 import React from 'react'
 import styles from './Styles'
 import emojis from '../../assets/emojiData'
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, ImageBackground } from 'react-native'
 import { useRef } from 'react'
 import { LogBox } from 'react-native'
 import { styleBuilder } from '../../utils/utils'
-
+import { LinearGradient } from 'react-native-svg'
+import wood from '../../assets/wood.jpg'
 const EmojiCard = ({
   column,
   handleSelection,
@@ -38,6 +39,11 @@ const EmojiCard = ({
   )
   return (
     <Pressable style={pressableClass} onPress={handleEmojiSelection}>
+      <ImageBackground
+        source={wood}
+        resizeMode="cover"
+        style={styleBuilder(styles.centeredView, styles.backgroundImg)}
+      ></ImageBackground>
       <View ref={ref}>
         <Text id={id} style={emojiConcStyle}>
           {emoji}
