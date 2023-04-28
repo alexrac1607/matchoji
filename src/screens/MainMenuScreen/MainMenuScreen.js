@@ -1,22 +1,23 @@
-import React from "react";
-import styles from "../../styles/utils.modules.scss";
-import MenuButton from "../../atoms/MenuButton";
-import { labels } from "../../constants/labels";
-import { View } from "react-native";
+import React from 'react'
+import styles from './styles'
+import MenuButton from '../../atoms/MenuButton'
+import { labels } from '../../constants/labels'
+import { View } from 'react-native'
+import Menu from '../../atoms/Menu'
 
 const MainMenuScreen = ({ navigation }) => {
   return (
-    <View className={styles.menu}>
+    <Menu>
       <MenuButton
         btnLabel={labels.PLAY_BUTTON}
         mainAction={() => {
-          navigation.navigate("ModeScreen");
+          navigation.navigate('ModeScreen')
         }}
       ></MenuButton>
       <MenuButton btnLabel={labels.SETTINGS_BUTTON}></MenuButton>
       <MenuButton btnLabel={labels.CREDITS_BUTTON}></MenuButton>
-    </View>
-  );
-};
+    </Menu>
+  )
+}
 
-export default MainMenuScreen;
+export default MainMenuScreen

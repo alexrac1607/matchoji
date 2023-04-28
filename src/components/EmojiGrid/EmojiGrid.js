@@ -17,7 +17,6 @@ const EmojiGrid = ({ emojiData }) => {
     dispatch,
   } = useContext(GameContext)
   const gridRef = useRef()
-  console.log(levelState)
 
   const handleEmojiSelection = (emojiUnicode, column, coords) => {
     let isEmojiSelected
@@ -158,7 +157,6 @@ const EmojiGrid = ({ emojiData }) => {
   const lineGenerator = () => {
     let result = levelState.map((pair) => {
       const { width, height } = Dimensions.get('window')
-      console.log(height, width)
       return (
         <View
           style={{
@@ -170,11 +168,11 @@ const EmojiGrid = ({ emojiData }) => {
           <Svg height={height} width={width}>
             <Line
               x2={pair.startX}
-              y2={pair.startY - 50}
+              y2={pair.startY - 65}
               x1={pair.endX}
-              y1={pair.endY - 50}
+              y1={pair.endY - 65}
               stroke={pair.isValidPair ? config.correctPair : config.wrongPair}
-              strokeWidth="5"
+              strokeWidth="10"
             />
           </Svg>
         </View>
@@ -202,7 +200,6 @@ const EmojiGrid = ({ emojiData }) => {
     }
 
     if (levelState.length === emojiData.length && emojiData.length !== 0) {
-      console.log(levelState.length, emojiData.length)
       dispatch({ type: `increase-level` })
       resetLevelState()
     }
