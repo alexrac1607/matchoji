@@ -72,7 +72,11 @@ const EmojiGrid = ({ emojiData }) => {
 
     return isValidPair
   }
-
+  useEffect(() => {
+    if (level % 20 === 0) {
+      dispatch({ type: 'increase-tier' })
+    }
+  }, [level])
   useEffect(() => {
     if (selectedEmojis.length > 1) {
       checkPair()

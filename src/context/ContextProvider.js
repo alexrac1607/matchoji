@@ -17,42 +17,55 @@ const reducerFn = (state, action) => {
       return {
         level: 1,
         score: 0,
+        tier: 1,
         livesLeft: 3,
         permittedFail: 0,
         currentEmojis: [],
-        usedEmojis: [],
+        usedPairs: [],
       }
     }
     case `get-level-data`: {
-      const calcTier = Math.floor(state.level / 10)
+      const calcTier = Math.floor(state.level / 20)
       const { tierDifficultyIndex, intPairs, permittedFail } = tiers[calcTier]
-
       const emojiPairsPool = pairs.filter((pair) => {
         return pair.difficulty_index === tierDifficultyIndex
       })
       const resultData = []
-      let usedIds = [...state.usedEmojis]
-      while (resultData.length <= intPairs) {
+      let usedPairs = [...state.usedPairs]
+      const thisLvlUsedEmojis = []
+      while (resultData.length < intPairs) {
         let index = getRandomInt(0, emojiPairsPool.length - 1)
         let targetPair = emojiPairsPool[index]
         let targetPairId = Object.values(targetPair).join('')
-        if (usedIds.includes(targetPairId)) continue
+        const emoji1 = targetPair.associated_emoji
+        const emoji2 = targetPair.emoji
+        console.log('pula', emoji1, emoji2, thisLvlUsedEmojis)
+        if (
+          usedPairs.includes(targetPairId) ||
+          thisLvlUsedEmojis.includes(emoji1) ||
+          thisLvlUsedEmojis.includes(emoji2)
+        ) {
+          continue
+        }
         resultData.push(targetPair)
-        usedIds.push(targetPairId)
+        usedPairs.push(targetPairId)
+        thisLvlUsedEmojis.push(emoji1, emoji2)
       }
       return {
         ...state,
         currentEmojis: resultData,
-        usedEmojis: [...usedIds],
+        usedPairs: [...usedPairs],
         permittedFail: permittedFail,
-        
       }
     }
     case `push-used-emojis`: {
-      return { ...state, usedEmojis: [...action.payload] }
+      return { ...state, usedPairs: [...action.payload] }
     }
     case `decrease-life`: {
-      return {...state, livesLeft: state.livesLeft - 1}
+      return { ...state, livesLeft: state.livesLeft - 1 }
+    }
+    case 'increase-tier': {
+      return { ...state, tier: state.tier + 1, usedPairs: [] }
     }
   }
 }
@@ -64,7 +77,7 @@ export const ContextProvider = ({ children }) => {
     livesLeft: 3,
     permittedFail: 0,
     currentEmojis: [],
-    usedEmojis: [],
+    usedPairs: [],
   })
   const value = { context, dispatch }
 

@@ -1,4 +1,4 @@
-const pairs = [
+export const pairs = [
   {
     emoji: 'U+1F489',
     associated_emoji: 'U+1F637',
@@ -1960,65 +1960,65 @@ const pairs = [
 //   difficulty_index: 1
 // }
 
-const fs = require('fs')
+// const fs = require('fs')
 
-function separateEmojios() {
-  const difficulty1 = []
-  const difficulty2 = []
-  const difficulty3 = []
-  const difficulty4 = []
-  const difficulty5 = []
-  pairs.forEach((pair) => {
-    switch (pair.difficulty_index) {
-      case 1:
-        difficulty1.push(pair)
-        break
-      case 2:
-        difficulty2.push(pair)
-        break
-      case 3:
-        difficulty3.push(pair)
-        break
-      case 4:
-        difficulty4.push(pair)
-        break
-      case 5:
-        difficulty5.push(pair)
-        break
-      default:
-        break
-    }
-  })
-  const output = ` const difficulty1 = ${JSON.stringify(
-    difficulty1,
-    null,
-    2
-  ).replace(/"([^"]+)":/g, '$1:')}; const difficulty2 = ${JSON.stringify(
-    difficulty2,
-    null,
-    2
-  ).replace(/"([^"]+)":/g, '$1:')}; const difficulty3 = ${JSON.stringify(
-    difficulty3,
-    null,
-    2
-  ).replace(/"([^"]+)":/g, '$1:')}; const difficulty4 = ${JSON.stringify(
-    difficulty4,
-    null,
-    2
-  ).replace(/"([^"]+)":/g, '$1:')}; const difficulty5 = ${JSON.stringify(
-    difficulty5,
-    null,
-    2
-  ).replace(
-    /"([^"]+)":/g,
-    '$1:'
-  )}; module.exports = { difficulty1, difficulty2, difficulty3, difficulty4, difficulty5 }; `
-  fs.writeFile('separatedArrays.js', output, (err) => {
-    if (err) {
-      console.error('Error writing to file:', err)
-    } else {
-      console.log('File saved as separatedArrays.js')
-    }
-  })
-}
-separateEmojios()
+// function separateEmojios() {
+//   const difficulty1 = []
+//   const difficulty2 = []
+//   const difficulty3 = []
+//   const difficulty4 = []
+//   const difficulty5 = []
+//   pairs.forEach((pair) => {
+//     switch (pair.difficulty_index) {
+//       case 1:
+//         difficulty1.push(pair)
+//         break
+//       case 2:
+//         difficulty2.push(pair)
+//         break
+//       case 3:
+//         difficulty3.push(pair)
+//         break
+//       case 4:
+//         difficulty4.push(pair)
+//         break
+//       case 5:
+//         difficulty5.push(pair)
+//         break
+//       default:
+//         break
+//     }
+//   })
+//   const output = ` const difficulty1 = ${JSON.stringify(
+//     difficulty1,
+//     null,
+//     2
+//   ).replace(/"([^"]+)":/g, '$1:')}; const difficulty2 = ${JSON.stringify(
+//     difficulty2,
+//     null,
+//     2
+//   ).replace(/"([^"]+)":/g, '$1:')}; const difficulty3 = ${JSON.stringify(
+//     difficulty3,
+//     null,
+//     2
+//   ).replace(/"([^"]+)":/g, '$1:')}; const difficulty4 = ${JSON.stringify(
+//     difficulty4,
+//     null,
+//     2
+//   ).replace(/"([^"]+)":/g, '$1:')}; const difficulty5 = ${JSON.stringify(
+//     difficulty5,
+//     null,
+//     2
+//   ).replace(
+//     /"([^"]+)":/g,
+//     '$1:'
+//   )}; module.exports = { difficulty1, difficulty2, difficulty3, difficulty4, difficulty5 }; `
+//   fs.writeFile('separatedArrays.js', output, (err) => {
+//     if (err) {
+//       console.error('Error writing to file:', err)
+//     } else {
+//       console.log('File saved as separatedArrays.js')
+//     }
+//   })
+// }
+// separateEmojios()

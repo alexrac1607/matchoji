@@ -5,13 +5,23 @@ export const tiers = {
     permittedFail: 2,
   },
   1: {
-    tierDifficultyIndex: 1.5,
+    tierDifficultyIndex: 2,
     intPairs: 4,
     permittedFail: 2,
   },
   2: {
-    tierDifficultyIndex: 2,
-    intPairs: 3,
+    tierDifficultyIndex: 3,
+    intPairs: 5,
+    permittedFail: 1,
+  },
+  3: {
+    tierDifficultyIndex: 4,
+    intPairs: 6,
+    permittedFail: 1,
+  },
+  4: {
+    tierDifficultyIndex: 5,
+    intPairs: 6,
     permittedFail: 1,
   },
 }
