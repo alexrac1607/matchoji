@@ -21,10 +21,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.rnbproductions.matchoji"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "666c0568-a0ca-4e62-ade1-6fd6e8da7f26"
+      }
+    },
+    "plugins": [
+      "expo-build-properties"
+    ]
   }
 }
