@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Modal, Stylesheet, Text, Pressable, View } from 'react-native'
+import { Modal, Text, Pressable, View } from 'react-native'
 import { Styles } from './Styles'
 
 const CustomModal = ({

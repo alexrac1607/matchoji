@@ -11,7 +11,7 @@ export const tiers = {
   },
   2: {
     tierDifficultyIndex: 3,
-    intPairs: 5,
+    intPairs: 4,
     permittedFail: 1,
   },
   3: {

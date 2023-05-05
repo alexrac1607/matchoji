@@ -3,13 +3,18 @@ import config from '../../styles/config'
 
 export default StyleSheet.create({
   emojiCard: {
-    height: 95,
-    width: 95,
+    height: 75,
+    width: 75,
     // backgroundColor: 'red',
     // padding: 30,
     borderRadius: 10,
     backgroundColor: config.colorDarkOrange,
     overflow: 'hidden',
+    // flexShrink: 0,
+    // aspectRatio: '1/1',
+    // alignSelf: 'center',
+    // flexGrow: 0,
+
     transform: [
       // { perspective: 850 },
       // { translateX: -22 },
@@ -23,13 +28,14 @@ export default StyleSheet.create({
     marginTop: 22,
   },
   emoji: {
-    height: 65,
-    width: 65,
-    fontSize: 45,
+    height: 55,
+    width: 55,
+    fontSize: 40,
     backgroundColor: config.colorGray,
     borderRadius: 10,
     textAlign: 'center',
     justifyContent: 'center',
+    marginBottom: 'auto',
   },
   selected: {
     backgroundColor: config.colorBlueGreen,

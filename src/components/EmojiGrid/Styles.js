@@ -1,14 +1,21 @@
 import { StyleSheet } from 'react-native'
-import config from '../../styles/config'
 
 export default StyleSheet.create({
-  flexDirectionRow: { flexDirection: 'row', gap: 40 },
+  flexDirectionRow: {
+    flexDirection: 'row',
+    gap: 100,
+    // flexShrink: 0,
+    // flexGrow: 0,
+    // aspectRatio: 1,
+  },
   column: {
-    gap: 40,
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    gap: 20,
   },
   grid: {
     position: 'absolute',
-    // top: '50%',
-    right: '50%',
+    top: '0%',
+    right: '48%',
   },
 })

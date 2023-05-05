@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Image, ImageBackground, Pressable, Text } from 'react-native'
+import { Button, Image, Pressable, Text } from 'react-native'
 import styles from './MenuButtonStyles.js'
 import button from '../assets/orangeButton.png'
 import Animated, {
@@ -7,7 +7,6 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   withRepeat,
-  Easing,
 } from 'react-native-reanimated'
 const MenuButton = ({ btnLabel, mainAction }) => {
   const scaleX = useSharedValue(1)

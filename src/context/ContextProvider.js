@@ -25,7 +25,7 @@ const reducerFn = (state, action) => {
       }
     }
     case `get-level-data`: {
-      const calcTier = Math.floor(state.level / 20)
+      const calcTier = Math.floor(state.level / 1)
       const { tierDifficultyIndex, intPairs, permittedFail } = tiers[calcTier]
       const emojiPairsPool = pairs.filter((pair) => {
         return pair.difficulty_index === tierDifficultyIndex
